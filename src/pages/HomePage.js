@@ -123,7 +123,7 @@ function HomePage() {
                 : "Stok Pakan kurang"}
             </p>
           </div>
-          <p className="cursor-pointer" onClick={() => navigate("/")}>
+          <p className="cursor-pointer" onClick={() => navigate("/home")}>
             refresh <BiRefresh className="inline" />
           </p>
         </div>

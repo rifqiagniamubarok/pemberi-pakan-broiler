@@ -17,16 +17,7 @@ function LoginPage() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // akunvalidasi.map((akun) => {
-    //   if (akun.email === usernameInput && akun.pass === passwordInput) {
-    //     setCookie(null, "sericode", akun.seri);
-    //     Swal.fire("Login Success", "welcome", "success");
-    //     navigate("/");
-    //   } else if (akun.email !== usernameInput || akun.pass !== passwordInput) {
-    //     serUnregistered(true);
-    //   }
-    // });
-    // navigate(`/`);
+
     get(child(dbRef, `daftarakun/` + usernameInput))
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -42,7 +33,7 @@ function LoginPage() {
                       setCookie(null, "akunTervalidasi", usernameInput);
                       setCookie(null, "kodeseri", snapshot.val());
                       Swal.fire("Login Success", "welcome", "success");
-                      navigate("/");
+                      navigate("/home");
                     } else {
                       Swal.fire("Maaf", "Tidak ada seri yang terbaca", "error");
                       navigate("/login");
@@ -52,7 +43,7 @@ function LoginPage() {
                   // setCookie(null, "akunTervalidasi", usernameInput);
                   // setCookie(null, "kodeseri", kodeSeri[1]);
                   // Swal.fire("Login Success", "welcome", "success");
-                  // navigate("/");
+                  // navigate("/home");
                 } else {
                   serUnregistered(true);
                 }
@@ -146,12 +137,14 @@ function LoginPage() {
             </p>
           </div>
           <div className="flex justify-center items-center mt-6">
-            <div
-              className={`bg-white py-2 px-4 text-sm text-indigo-900 font-semibold rounded border border-indigo-900 focus:outline-none focus:border-green-dark mr-2 cursor-pointer`}
-            >
-              {" "}
-              <Link to="/welcome">Back</Link>
-            </div>
+            <Link to="/">
+              <div
+                className={`bg-white py-2 px-4 text-sm text-indigo-900 font-semibold rounded border border-indigo-900 focus:outline-none focus:border-green-dark mr-2 cursor-pointer`}
+              >
+                {" "}
+                Back
+              </div>
+            </Link>
             <button
               className={`bg-indigo-900 py-2 px-4 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`}
               type="submit"

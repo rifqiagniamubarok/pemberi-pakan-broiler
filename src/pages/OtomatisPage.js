@@ -132,7 +132,7 @@ function OtomatisPage() {
           <button
             className="cursor-pointer mb-4"
             onClick={() => {
-              navigate("/");
+              navigate("/home");
               navigate("/otomatis");
             }}
           >

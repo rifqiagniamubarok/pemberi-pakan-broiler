@@ -270,7 +270,7 @@ function AkunPage() {
                           className="text-left bg-yellow-500 rounded  px-2 text-white hover:bg-yellow-300"
                           onClick={() => {
                             setCookie(null, "kodeseri", kode);
-                            navigate("/");
+                            navigate("/home");
                           }}
                         >
                           <CgMoveRight className="text-white w-5 h-5 inline" />

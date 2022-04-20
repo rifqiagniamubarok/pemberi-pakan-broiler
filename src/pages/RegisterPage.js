@@ -258,12 +258,14 @@ function RegisterPage() {
             </p>
           </div>
           <div className="flex justify-center items-center mt-6">
-            <div
-              className={`bg-white py-2 px-4 text-sm text-indigo-900 font-semibold rounded border border-indigo-900 focus:outline-none focus:border-green-dark mr-2 cursor-pointer`}
-            >
-              {" "}
-              <Link to="/welcome">Back</Link>
-            </div>
+            <Link to="/">
+              <div
+                className={`bg-white py-2 px-4 text-sm text-indigo-900 font-semibold rounded border border-indigo-900 focus:outline-none focus:border-green-dark mr-2 cursor-pointer`}
+              >
+                {" "}
+                Back
+              </div>
+            </Link>
             <button
               className={`bg-indigo-900 py-2 px-4 text-sm text-white rounded border border-green focus:outline-none focus:border-green-dark`}
               type="submit"
