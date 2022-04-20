@@ -3,15 +3,13 @@ import { useNavigate, Link } from "react-router-dom";
 import { database } from "../firebase";
 import { set, ref, child, get } from "firebase/database";
 import Swal from "sweetalert2";
+import { parseCookies } from "nookies";
 
 function RegisterPage() {
   const navigate = useNavigate();
   const db = database;
   const dbRef = ref(database);
-
-  // state pengambilan data
-  const [akunTerdaftar, setAkunTerdaftar] = useState([]);
-  const [seriTerdaftar, setSeriTerdaftar] = useState([]);
+  const cookies = parseCookies();
 
   const [seriInput, setSeriInput] = useState(0);
   const [emailInput, setEmailInput] = useState("");
@@ -109,78 +107,22 @@ function RegisterPage() {
     } else {
       setPassSama(true);
     }
-
-    // let jumlahAkun = akunTerdaftar.length;
-    // let jumlahSeri = seriTerdaftar.length;
-
-    // let cekAkun = akunTerdaftar.filter((akun) => akun.email === emailInput);
-    // let cekSeri = seriTerdaftar.filter((akun) => akun.kode === seriInput);
-
-    // if (passwordInputValidasi === passwordInput) {
-    //   if (cekAkun.length === 0) {
-    //     if (cekSeri === 0) {
-    //       Swal.fire("Maaf", "Seri belum terdaftar  ", "error");
-    //     } else {
-    //       seriTerdaftar.map((nilai, idx) => {
-    //         if (nilai.kode === seriInput && nilai.status === false) {
-    //           const db = database;
-    //           // input data pendukung
-    //           set(ref(db, `akunvalidasi/` + jumlahAkun), {
-    //             email: emailInput,
-    //             pass: passwordInput,
-    //             seri: seriInput,
-    //           });
-    //           set(ref(db, `seriterdaftar/` + idx + "/status"), true);
-
-    //           // input data utama
-    //           set(ref(db, seriInput + "/akun"), {
-    //             email: emailInput,
-    //             pass: passwordInput,
-    //           });
-    //           set(ref(db, seriInput + "/data/aksi/manual"), false);
-    //           set(ref(db, seriInput + "/data/sensor/nilai"), 0);
-    //           Swal.fire("success", "Seri telah berhasil dibuat  ", "true");
-    //           navigate("/login");
-    //         } else if (nilai.kode === seriInput && nilai.status === true) {
-    //           Swal.fire("Maaf", "Seri telah terdaftar dan aktif ", "error");
-    //         }
-    //       });
-    //     }
-
-    //     // console.log(jumlah);
-    //   } else {
-    //     Swal.fire("Maaf", "Akun telah terdaftar  ", "error");
-    //   }
-    // } else {
-    //   setPassSama(true);
-    // }
   };
 
-  // useEffect(() => {
-  //   const dbRef = ref(database);
-  //   get(child(dbRef, `akunvalidasi`))
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         setAkunTerdaftar(snapshot.val());
-  //       } else {
-  //         console.log("No data available");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  //   get(child(dbRef, `seriterdaftar`))
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         setSeriTerdaftar(snapshot.val());
-  //       } else {
-  //         console.log("No data available");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // });
+  useEffect(() => {
+    if (cookies.akunTervalidasi !== undefined) {
+      navigate("/home");
+    }
+    get(child(dbRef, `daftarakun/${cookies.akunTervalidasi}/kodeseri`)).then(
+      (snapshot) => {
+        if (snapshot.exists()) {
+          // setKodeSeri(snapshot.val());
+          navigate("/home");
+        } else {
+        }
+      }
+    );
+  }, []);
 
   return (
     <div className="h-screen flex bg-gray-100 md:p-0 p-3">

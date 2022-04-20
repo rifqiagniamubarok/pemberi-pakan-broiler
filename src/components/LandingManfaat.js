@@ -113,9 +113,6 @@ function LandingManfaat() {
       </div>
     </div>
   );
-  {
-    /* BATASSS */
-  }
 }
 
 export default LandingManfaat;

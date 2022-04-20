@@ -8,7 +8,7 @@ function NavbarLandingPage() {
   return (
     <div>
       <nav className="z-20 flex flex-wrap w-screen items-center justify-between md:px-24 py-1 top-0 bg-white fill-white   ">
-        <div className="container md:px-20 md:mx-20 flex flex-wrap items-center justify-between container  md:px-10">
+        <div className="container md:px-20 md:mx-20 flex flex-wrap items-center justify-between  ">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start mt-2 md:mt-1 ">
             <div
               className="text-indigo-900 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"

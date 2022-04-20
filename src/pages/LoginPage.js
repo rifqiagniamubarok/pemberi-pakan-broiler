@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { database } from "../firebase";
 import { ref, child, get } from "firebase/database";
-import { setCookie } from "nookies";
+import { setCookie, parseCookies } from "nookies";
 import Swal from "sweetalert2";
 
 function LoginPage() {
   let navigate = useNavigate();
   const dbRef = ref(database);
+  const cookies = parseCookies();
 
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [unregistered, serUnregistered] = useState(false);
-
-  // const Swal = require("sweetalert2");
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -39,11 +38,6 @@ function LoginPage() {
                       navigate("/login");
                     }
                   });
-
-                  // setCookie(null, "akunTervalidasi", usernameInput);
-                  // setCookie(null, "kodeseri", kodeSeri[1]);
-                  // Swal.fire("Login Success", "welcome", "success");
-                  // navigate("/home");
                 } else {
                   serUnregistered(true);
                 }
@@ -64,32 +58,20 @@ function LoginPage() {
       });
   };
 
-  // useEffect(() => {
-  //   const dbRef = ref(database);
-  //   get(child(dbRef, `akunvalidasi`))
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         setAkunvalidasi(snapshot.val());
-  //       } else {
-  //         console.log("No data available");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  //   // batas
-  //   // get(child(dbRef, `daftarakun/`))
-  //   //   .then((snapshot) => {
-  //   //     if (snapshot.exists()) {
-  //   //       setCoba(snapshot.val());
-  //   //     } else {
-  //   //       console.log("No data available");
-  //   //     }
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     console.error(error);
-  //   //   });
-  // }, []);
+  useEffect(() => {
+    if (cookies.akunTervalidasi !== undefined) {
+      navigate("/home");
+    }
+    get(child(dbRef, `daftarakun/${cookies.akunTervalidasi}/kodeseri`)).then(
+      (snapshot) => {
+        if (snapshot.exists()) {
+          // setKodeSeri(snapshot.val());
+          navigate("/home");
+        } else {
+        }
+      }
+    );
+  }, []);
 
   return (
     <div className="h-screen flex bg-gray-100 md:p-0 p-3">

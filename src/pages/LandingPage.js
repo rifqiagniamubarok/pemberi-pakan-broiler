@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import ControlVector from "../assets/control.svg";
+import { parseCookies } from "nookies";
 
 import logoPolmed from "../assets/img/logoPolmed.png";
 import { Link } from "react-router-dom";
@@ -9,8 +10,11 @@ import NavbarLandingPage from "../views/NavbarLandingPage";
 
 import LandingManfaat from "../components/LandingManfaat";
 import LandingFitur from "../components/LandingFitur";
+import LandingTeknologi from "../components/LandingTeknologi";
 
 function LandingPage() {
+  const cookies = parseCookies();
+
   useEffect(() => {
     AOS.init({
       duration: 2000,
@@ -40,18 +44,29 @@ function LandingPage() {
               <p>Media bantu peternak broiler untuk</p>
               <p>mengatasi permasalahan pemberian pakan</p>
             </div>
-            <div className="md:mt-10 mt-5">
-              <Link to="/login">
-                <button className="text-xs md:text-sm font-medium text-white bg-indigo-900 px-3 py-1 rounded border-2 border-indigo-800 md:w-24 w-20 hover:bg-indigo-800">
-                  Login
-                </button>
-              </Link>
-              <Link to="/register">
-                <button className="text-xs md:text-sm font-medium text-indigo-800 bg-white border-2 border-indigo-800 px-3 py-1 rounded ml-1 md:w-24 w-20 hover:bg-gray-100">
-                  Register
-                </button>
-              </Link>
-            </div>
+            {cookies.akunTervalidasi !== undefined ? (
+              <div className="mt-5">
+                <p className="text-lg">Hello, {cookies.akunTervalidasi}</p>
+                <Link to="/home">
+                  <button className="text-xs md:text-sm font-medium text-white bg-indigo-900 px-3 py-1 rounded border-2 border-indigo-800 md:w-24 w-20 hover:bg-indigo-800">
+                    Home
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <div className="md:mt-10 mt-5">
+                <Link to="/login">
+                  <button className="text-xs md:text-sm font-medium text-white bg-indigo-900 px-3 py-1 rounded border-2 border-indigo-800 md:w-24 w-20 hover:bg-indigo-800">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/register">
+                  <button className="text-xs md:text-sm font-medium text-indigo-800 bg-white border-2 border-indigo-800 px-3 py-1 rounded ml-1 md:w-24 w-20 hover:bg-gray-100">
+                    Register
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
@@ -79,6 +94,7 @@ function LandingPage() {
             d="M0,64L80,85.3C160,107,320,149,480,170.7C640,192,800,192,960,170.7C1120,149,1280,107,1360,85.3L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
           ></path>
         </svg>
+        <LandingTeknologi />
 
         {/* <div className="grid md:grid-cols-2 grid-cols-1 mb-32">
           <div className="place-self-center col-span-2">
