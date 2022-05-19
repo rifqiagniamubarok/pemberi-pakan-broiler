@@ -19,6 +19,7 @@ function AkunPage() {
   // dbref untuk melakukan write
   const dbRef = ref(database);
 
+  // penambahan kodeseri ecek2
   const [kodeSeri, setKodeSeri] = useState([]);
 
   const cookies = parseCookies();
