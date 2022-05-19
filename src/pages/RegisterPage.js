@@ -19,6 +19,9 @@ function RegisterPage() {
 
   const [passSama, setPassSama] = useState(false);
 
+  const [dataAkun, setDataAkun] = useState([]);
+  const [dataSeri, setDataSeri] = useState([]);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (passwordInputValidasi === passwordInput) {
@@ -44,6 +47,15 @@ function RegisterPage() {
                         } else {
                           set(ref(db, `daftarseri/${seriInput}/status`), true);
 
+                          dataSeri.map((x, y) => {
+                            if (x.seri == seriInput) {
+                              set(
+                                ref(db, `daftarseri/dataseri/${y}/status`),
+                                true
+                              );
+                            }
+                          });
+
                           set(ref(db, `daftarakun/${usernameInput}`), {
                             data: {
                               email: emailInput,
@@ -53,6 +65,16 @@ function RegisterPage() {
                               1: seriInput,
                             },
                           });
+
+                          set(
+                            ref(db, `daftarakun/dataakun/${dataAkun.length}`),
+                            {
+                              username: usernameInput,
+                              perangkat: {
+                                1: parseInt(seriInput),
+                              },
+                            }
+                          );
 
                           set(ref(db, `daftardevice/${seriInput}`), {
                             akun: {
@@ -122,7 +144,21 @@ function RegisterPage() {
         }
       }
     );
+    get(child(dbRef, `daftarakun/dataakun`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setDataAkun(snapshot.val());
+      } else {
+      }
+    });
+    get(child(dbRef, `daftarseri/dataseri`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setDataSeri(snapshot.val());
+      } else {
+      }
+    });
   }, []);
+
+  // const ini = dataSeri.FindIndex((i) => i.seri === 88888);
 
   return (
     <div className="h-screen flex bg-gray-100 md:p-0 p-3">

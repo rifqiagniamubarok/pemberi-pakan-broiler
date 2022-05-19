@@ -6,7 +6,7 @@ import { setCookie, parseCookies } from "nookies";
 import Swal from "sweetalert2";
 
 function LoginPage() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const dbRef = ref(database);
   const cookies = parseCookies();
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { parseCookies, destroyCookie, setCookie } from "nookies";
+import { parseCookies, destroyCookie } from "nookies";
 import NavbarComponent from "../views/NavbarComponent";
 
 import { database } from "../firebase";
-import { ref, set, child, get, remove } from "firebase/database";
+import { ref, child, get } from "firebase/database";
 import Swal from "sweetalert2";
 
 import AkunAkunSetting from "../components/AkunAkunSetting";
@@ -15,8 +15,9 @@ import AkunWifiSetting from "../components/AkunWifiSetting";
 import AkunWifiEdit from "../components/AkunWifiEdit";
 
 function AkunPage() {
+  // Inisiasi database firebase
+  // dbref untuk melakukan write
   const dbRef = ref(database);
-  const db = database;
 
   const [kodeSeri, setKodeSeri] = useState([]);
 
@@ -46,6 +47,10 @@ function AkunPage() {
   // setting
   const [wifiSettingOpen, setWifiSettingOpen] = useState(false);
   const [wifiSettingEdit, setWifiSettingEdit] = useState(false);
+
+  // data perangkat
+  const [dataSeri, setDataSeri] = useState([]);
+  const [dataAkun, setDataAkun] = useState([]);
 
   const handleLogOut = () => {
     destroyCookie(null, "akunTervalidasi");
@@ -94,7 +99,21 @@ function AkunPage() {
         }
       }
     );
+    get(child(dbRef, `daftarseri/dataseri`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setDataSeri(snapshot.val());
+      } else {
+      }
+    });
+    get(child(dbRef, `daftarakun/dataakun`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setDataAkun(snapshot.val());
+      } else {
+      }
+    });
   }, []);
+
+  console.log(kodeSeri);
 
   return (
     <div>
@@ -169,6 +188,8 @@ function AkunPage() {
                 akunData={akunData}
                 setDeviceSettingOpen={setDeviceSettingOpen}
                 setDeviceSettingEdit={setAkunSettingEdit}
+                dataSeri={dataSeri}
+                dataAkun={dataAkun}
               />
             ) : (
               <span></span>
@@ -200,6 +221,7 @@ function AkunPage() {
                 setPassWifiBaru={setPassWifiBaru}
                 setWifiSettingOpen={setAkunSettingOpen}
                 setWifiSettingEdit={setAkunSettingEdit}
+                dataSeri={dataSeri}
               />
             ) : (
               <span></span>

@@ -1,9 +1,9 @@
 import React from "react";
 import { database } from "../firebase";
-import { parseCookies, destroyCookie, setCookie } from "nookies";
+import { parseCookies } from "nookies";
 import { useNavigate } from "react-router-dom";
 
-import { ref, set, child, get, remove } from "firebase/database";
+import { ref, set } from "firebase/database";
 import Swal from "sweetalert2";
 
 function AkunWifiEdit({
@@ -17,7 +17,7 @@ function AkunWifiEdit({
   const navigate = useNavigate();
 
   const cookies = parseCookies();
-  const dbRef = ref(database);
+
   const db = database;
   return (
     <div className="border-2 border-indigo-900 rounded grid grid-cols-4 p-2">

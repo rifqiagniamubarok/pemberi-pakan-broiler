@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { parseCookies, destroyCookie, setCookie } from "nookies";
-import { CgMoveRight, CgInsertAfterR } from "react-icons/cg";
+import { parseCookies } from "nookies";
+
 import { database } from "../firebase";
-import { ref, set, child, get, remove } from "firebase/database";
+import { ref, set, child, get } from "firebase/database";
+
 import Swal from "sweetalert2";
 
 function AkunPerangkatEdit({
@@ -13,9 +14,12 @@ function AkunPerangkatEdit({
   akunData,
   setDeviceSettingOpen,
   setDeviceSettingEdit,
+  dataSeri,
+  dataAkun,
 }) {
   const cookies = parseCookies();
   const navigate = useNavigate();
+
   const dbRef = ref(database);
   const db = database;
 
@@ -54,6 +58,7 @@ function AkunPerangkatEdit({
                           ref(db, `daftarseri/${seriPerangkatBaru}/status`),
                           true
                         );
+
                         set(
                           ref(
                             db,
@@ -84,6 +89,28 @@ function AkunPerangkatEdit({
                           },
                           terhubung: false,
                         });
+
+                        dataSeri.map((x, y) => {
+                          if (x.seri == seriPerangkatBaru) {
+                            set(
+                              ref(db, `daftarseri/dataseri/${y}/status`),
+                              true
+                            );
+                          }
+                        });
+
+                        dataAkun.map((x, y) => {
+                          if (x.username == akunData.username) {
+                            set(
+                              ref(
+                                db,
+                                `daftarakun/dataakun/${y}/perangkat/${kodeSeri.length}`
+                              ),
+                              seriPerangkatBaru
+                            );
+                          }
+                        });
+
                         Swal.fire(
                           "Berhasil",
                           `Seri baru telah ditambahkan`,
