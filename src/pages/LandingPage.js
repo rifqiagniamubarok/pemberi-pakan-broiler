@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import ControlVector from "../assets/control.svg";
 import { parseCookies } from "nookies";
 
-import logoPolmed from "../assets/img/logoPolmed.png";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -95,22 +94,6 @@ function LandingPage() {
           ></path>
         </svg>
         <LandingTeknologi />
-
-        {/* <div className="grid md:grid-cols-2 grid-cols-1 mb-32">
-          <div className="place-self-center col-span-2">
-            <img
-              src={logoPolmed}
-              alt="logo polmed"
-              className="w-32 md:w-52 place-self-center"
-              data-aos={"fade-down"}
-            />
-          </div>
-          <div className="col-span-2 mt-10" data-aos={"fade-up"}>
-            <p className="text-2xl text-center md:text-4xl font-semibold text-indigo-900">
-              PROFIL PENGEMBANG
-            </p>
-          </div>
-        </div> */}
       </div>
     </div>
   );

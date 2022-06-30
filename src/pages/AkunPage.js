@@ -196,37 +196,6 @@ function AkunPage() {
               <span></span>
             )}
             {/* BATASss */}
-            <div
-              className="bg-indigo-900 hover:bg-indigo-700 text-white rounded p-1 my-1 font-semibold cursor-pointer"
-              onClick={() => {
-                setWifiSettingOpen(!wifiSettingOpen);
-                setWifiSettingEdit(false);
-              }}
-            >
-              <p className="">Wifi</p>
-            </div>
-            {wifiSettingOpen ? (
-              <AkunWifiSetting
-                ssidBaru={ssidBaru}
-                setWifiSettingOpen={setWifiSettingOpen}
-                setWifiSettingEdit={setWifiSettingEdit}
-              />
-            ) : (
-              <span></span>
-            )}
-            {wifiSettingEdit ? (
-              <AkunWifiEdit
-                ssidBaru={ssidBaru}
-                setSsidBaru={setSsidBaru}
-                passWifiBaru={passWifiBaru}
-                setPassWifiBaru={setPassWifiBaru}
-                setWifiSettingOpen={setAkunSettingOpen}
-                setWifiSettingEdit={setAkunSettingEdit}
-                dataSeri={dataSeri}
-              />
-            ) : (
-              <span></span>
-            )}
 
             {/* batasss */}
           </div>
