@@ -76,6 +76,7 @@ function AkunPerangkatEdit({
                           data: {
                             sensor: 0,
                             manual: false,
+                            totalOtomatis: 6,
                             otomatis: {
                               1: {
                                 jam: 0,

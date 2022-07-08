@@ -46,7 +46,7 @@ function HomePage() {
     get(child(dbRef, `daftardevice/${cookies.kodeseri}/data/sensor`)).then(
       (snapshot) => {
         if (snapshot.exists()) {
-          setPercentage(snapshot.val());
+          setPercentage(snapshot.val().toFixed(1));
         }
       }
     );
